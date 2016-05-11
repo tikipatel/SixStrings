@@ -8,18 +8,24 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class PracticeViewController: UIViewController {
+    //MARK: Properties
+    var user = User()
+    @IBOutlet weak var stageLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // Load user from NSCoding
+        
+        //
+        stageLabel.text = String(user.stage)
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
