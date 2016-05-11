@@ -76,27 +76,14 @@ ChordPair(Chord.A, Chord.B7)
 struct ChangeRecord {
     let numChanges : Int
     let date : NSDate
-}
-
-struct OneMinuteChange {
-    let chordPair : ChordPair
-    var changeRecords = [ChangeRecord]()
-}
-
-class User {
-    // MARK: Properties
-    var pic : UIImage?
-    var oneMinChanges = [OneMinuteChange]()
-    var stage : Int = 1
     
+    init(_ numChanges: Int) {
+        self.numChanges = numChanges
+        self.date = NSDate()
+    }
 }
 
-var me = User()
-
-me.pic = UIImage(named: "headshot")
-
-
-func getChordPairsForStage(stage: Int) -> [ChordPair] {
+func getChordPairsFor(stage: Int) -> Set<ChordPair> {
     var allChords = [Chord]()
     var chordPairs = Set<ChordPair>()
     
@@ -115,7 +102,43 @@ func getChordPairsForStage(stage: Int) -> [ChordPair] {
         }
     }
     
-    return Array(chordPairs)
+    return chordPairs
 }
 
-getChordPairsForStage(2)
+class User {
+    // MARK: Properties
+    var pic: UIImage?
+    var oneMinChanges = [ChordPair:[ChangeRecord]]()
+    private(set) var stage: Int = 0
+    
+    func incrementStage() {
+        stage += 1
+        
+        // Add chord pairs and empty record list to dictionary if entry doesn't exist
+        let chordPairs = getChordPairsFor(stage)
+        chordPairs.map({
+            if oneMinChanges[$0] == nil {
+                oneMinChanges[$0] = []
+            }
+        })
+    }
+    
+    func updateRecord(chordPair: ChordPair, record: ChangeRecord) {
+        oneMinChanges[chordPair]?.append(record)
+    }
+}
+
+var me = User()
+
+me.incrementStage()
+me.incrementStage()
+me.incrementStage()
+me.updateRecord(ChordPair(Chord.A, Chord.E)!, record: ChangeRecord(4))
+me.updateRecord(ChordPair(Chord.A, Chord.E)!, record: ChangeRecord(4))
+me.updateRecord(ChordPair(Chord.E, Chord.BigG)!, record: ChangeRecord(4))
+for (pair, records) in me.oneMinChanges {
+    print("(\(pair.first), \(pair.second)): \(records)")
+}
+
+NSDate()
+
