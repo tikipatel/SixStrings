@@ -47,19 +47,24 @@ enum Chord: String {
     
 }
 
-class ChordPair: NSObject, NSCoding {
+class ChordPair: NSObject, NSCoding, NSCopying {
     private let first, second: Chord
     
     override var hashValue: Int {
         return first.hashValue ^ second.hashValue
     }
     
-    init?(_ first: Chord, _ second: Chord) {
-        guard first != second else {
-            return nil
-        }
+    init(_ first: Chord, _ second: Chord) {
+//        guard first != second else {
+//            return nil
+//        }
         
         (self.first, self.second) = (first, second)
+    }
+    
+    // MARK: NSCopying
+    func copyWithZone(zone: NSZone) -> AnyObject {
+        return ChordPair(first, second)
     }
     
     // MARK: NSCoding
@@ -74,6 +79,14 @@ class ChordPair: NSObject, NSCoding {
             else { return nil }
         
         self.init(first, second)
+    }
+    
+    // MARK: Equality
+    override func isEqual(object: AnyObject?) -> Bool {
+        if let rhs = object as? ChordPair {
+            return self == rhs
+        }
+        return false
     }
 }
 
@@ -119,9 +132,9 @@ func getChordPairsFor(stage: Int) -> Set<ChordPair> {
     
     for first in allChords {
         for second in allChords {
-            if let pair = ChordPair(first, second) {
-                chordPairs.insert(pair)
-            }
+//            if let pair = ChordPair(first, second) {
+                chordPairs.insert(ChordPair(first, second))
+//            }
             
         }
     }
@@ -141,10 +154,6 @@ class User: NSObject, NSCoding {
         self.oneMinChanges = oneMinChanges
         self.stage = stage
     }
-    
-    // MARK: Archiving Paths
-    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("meals")
     
     // MARK: Methods
     func incrementStage() {
@@ -167,15 +176,15 @@ class User: NSObject, NSCoding {
     func encodeWithCoder(coder: NSCoder) {
         coder.encodeObject(self.pic, forKey: "photo")
         coder.encodeObject(self.oneMinChanges, forKey: "changes")
-        coder.encodeObject(self.stage, forKey: "stage")
+        coder.encodeInteger(self.stage, forKey: "stage")
     }
     
     required convenience init?(coder decoder: NSCoder) {
+        let stage = decoder.decodeIntegerForKey("stage")
+        
         guard let pic = decoder.decodeObjectForKey("photo") as? UIImage,
             let oneMinChanges = decoder.decodeObjectForKey("changes") as? [ChordPair:[ChangeRecord]]
             else { return nil }
-        
-        let stage = decoder.decodeIntegerForKey("stage")
         
         self.init(pic: pic, oneMinChanges: oneMinChanges, stage: stage)
     }

@@ -17,15 +17,34 @@ class PracticeViewController: UIViewController {
         super.viewDidLoad()
         
         // Load user from NSCoding
-        
-        //
-        stageLabel.text = String(user.stage)
-        
+//        loadUser()
+        updateStageLabel()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func updateStageLabel() {
+        stageLabel.text = String(user.stage)
+    }
+    
+    // MARK: Actions
+    
+    @IBAction func incStage(sender: UIButton) {
+        user.incrementStage()
+        updateStageLabel()
+        saveUser()
+    }
+    
+    // MARK: Utilities
+    func loadUser() {
+        if let tbc = self.tabBarController as? SSTabBarController {
+            self.user = tbc.loadUser()
+        }
+        user.pic = UIImage(named: "headshot")
+    }
+    
+    func saveUser() {
+        if let tbc = self.tabBarController as? SSTabBarController {
+            tbc.saveUser(user)
+        }
     }
 }
 

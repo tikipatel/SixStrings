@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		144BB8CA1CE3E6D500D17187 /* SSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144BB8C91CE3E6D500D17187 /* SSTabBarController.swift */; };
 		14AAD0D81CE3AF16006B7303 /* CircularLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AAD0D71CE3AF16006B7303 /* CircularLoaderView.swift */; };
 		14D4D1141CE26DA80074072A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D4D1131CE26DA80074072A /* AppDelegate.swift */; };
 		14D4D1161CE26DA80074072A /* PracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D4D1151CE26DA80074072A /* PracticeViewController.swift */; };
@@ -88,6 +89,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		144BB8C91CE3E6D500D17187 /* SSTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTabBarController.swift; sourceTree = "<group>"; };
 		14AAD0D71CE3AF16006B7303 /* CircularLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircularLoaderView.swift; path = ../CircularLoaderView.swift; sourceTree = "<group>"; };
 		14D4D1101CE26DA80074072A /* SixStrings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SixStrings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D4D1131CE26DA80074072A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				14D4D11E1CE26DA80074072A /* LaunchScreen.storyboard */,
 				14D4D1211CE26DA80074072A /* Info.plist */,
 				14D4D1451CE27AF70074072A /* User.swift */,
+				144BB8C91CE3E6D500D17187 /* SSTabBarController.swift */,
 			);
 			path = SixStrings;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				144BB8CA1CE3E6D500D17187 /* SSTabBarController.swift in Sources */,
 				14D4D1181CE26DA80074072A /* StatsViewController.swift in Sources */,
 				14D4D1141CE26DA80074072A /* AppDelegate.swift in Sources */,
 				14AAD0D81CE3AF16006B7303 /* CircularLoaderView.swift in Sources */,
@@ -531,6 +535,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.seanjohnsen.SixStrings;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -546,6 +551,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.seanjohnsen.SixStrings;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Release;
 		};
